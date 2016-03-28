@@ -1,0 +1,14 @@
+XXX
+  XX
+   XX
+    XX
+     XX
+      X
+      XX
+       XX
+        XX
+         XXX
+           X
+           XX
+            XX
+             X
