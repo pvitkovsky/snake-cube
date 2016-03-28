@@ -5,6 +5,8 @@ xnorm = [(0, n[0], n[1]) for n in norm]
 ynorm = [(n[0], 0, n[1]) for n in norm]
 znorm = [(n[0], n[1], 0) for n in norm]
 
+solution_cache = set()
+
 def normals(vector):
 	if vector[0] != 0:
 		return xnorm
@@ -25,35 +27,45 @@ def max_dist(p1, p2):
 	return max(map(dist, zip(p1, p2)))
 
 def print_output(pset, minpos, maxpos):
-	print('Found solution:')
+	result = ''
 	for z in reversed(range(minpos[2], maxpos[2]+1)):
 		for y in range(minpos[1], maxpos[1] + 1):
 			for x in range(minpos[0], maxpos[0] + 1):
-				sys.stdout.write(str(pset[(x, y, z)]).ljust(3))
-			print('')
-		print('')
+				result += str(pset[(x, y, z)]).ljust(3)
+			result += '\n'
+		result += '\n'
+
+	if not result in solution_cache:
+		print('Found solution:')
+		print(result)
+		solution_cache.add(result)
 
 def traverse(index, maxdim, chain, state):
 	pos, rdir, ddir, pset, minpos, maxpos = state
+	
+	# another cube is on this position already
 	if pos in pset: return
 
+	# check that we did not exceed cube maximum size boundary
 	minpos = tuple(map(min,zip(pos, minpos)))
 	maxpos = tuple(map(max,zip(pos, maxpos)))
 	if max_dist(minpos, maxpos) > maxdim: return
 
 	pset[pos] = index
-	if not chain:
-		print_output(pset, minpos, maxpos)
-		return #sys.exit(0)
+	try:
+		if not chain:
+			print_output(pset, minpos, maxpos)
+			return
 
-	head, tail = chain[0], chain[1:]
-	if head == 'R':
-		for n in normals(rdir):
-			traverse(index + 1, maxdim, tail, (add_vect(pos, rdir), rdir, n, pset, minpos, maxpos))
-	elif head == 'D':
-		for n in normals(ddir):
-			traverse(index + 1, maxdim, tail, (add_vect(pos, ddir), n, ddir, pset, minpos, maxpos))
-	del pset[pos]
+		head, tail = chain[0], chain[1:]
+		if head == 'R':
+			for n in normals(rdir):
+				traverse(index + 1, maxdim, tail, (add_vect(pos, rdir), rdir, n, pset, minpos, maxpos))
+		elif head == 'D':
+			for n in normals(ddir):
+				traverse(index + 1, maxdim, tail, (add_vect(pos, ddir), n, ddir, pset, minpos, maxpos))
+	finally:
+		del pset[pos]
 	return
 
 
