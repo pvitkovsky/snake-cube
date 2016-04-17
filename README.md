@@ -9,8 +9,9 @@ Brute-force solver for snake-cube puzzle. More info
 ## Input specification
 
 Tool consumes an input string from stdin. Alphabet consists of two characters:
- - **R** - joint going from right to left
- - **D** - joint going from up to down
+
+ * **R** - joint going from right to left
+ * **D** - joint going from up to down
 
 Input has to contain exactly 26 characters (that's number of cubes minus one), no whitespaces inside the
 sequence.
@@ -57,8 +58,9 @@ cat example.drawing | python drawing2rd.py
 ## Implementation and usage
 
 There are two implementations currently:
- - **snake_cube.py** - Simple python implementation. It is slow and does not de-duplicate results.
- - **snake_cube.scala** - Scala script, better optimized, prints out all unique solutions.
+
+ * **snake_cube.py** - Simple python implementation. It is slow and does not de-duplicate results.
+ * **snake_cube.scala** - Scala script, better optimized, prints out all unique solutions.
 
 Example of invoking the solver:
 
