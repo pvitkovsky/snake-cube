@@ -10,8 +10,8 @@ Brute-force solver for snake-cube puzzle. More info
 
 Tool consumes an input string from stdin. Alphabet consists of two characters:
 
- * **R** - joint going from right to left
- * **D** - joint going from up to down
+ * **R** - horizontal joint (going from left to **r**ight)
+ * **D** - vertical joint (going from up to **d**own)
 
 Input has to contain exactly 26 characters (that's number of cubes minus one), no whitespaces inside the
 sequence.
