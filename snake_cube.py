@@ -72,3 +72,4 @@ def traverse(index, maxdim, chain, state):
 chain = sys.stdin.readline().strip()
 traverse(0, 2, chain, ((0, 0, 0), (1, 0, 0), (0, 1, 0), {}, (0, 0, 0), (0, 0, 0) ))
 
+# TODO: modify sol to have 14th brick of RRDRDRDRDRDDRDRDRDRRDDRDRD to be a corner;
